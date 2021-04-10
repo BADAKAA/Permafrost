@@ -1,0 +1,42 @@
+body {
+    background: black;
+    margin: 0;
+}
+#background {
+    opacity: 0;
+    transition: 8s;
+    position: absolute;
+    text-align: center;
+    z-index: -100;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    background-size: cover;
+    background-image: url("https://images.unsplash.com/photo-1473654729523-203e25dfda10?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80");
+}
+
+h1 {
+
+    font-family: 'Nova Square', sans-serif;
+    color: red;
+    text-align: center;
+    font-size: 10rem;
+    letter-spacing: 1rem;
+    text-shadow: 6px 3px 5px rgba(0,0,0,0.5);
+    transition-duration: 3s;
+    opacity: 0;
+}
+
+h2 {
+    font-family: 'nova round', sans-serif;
+    color: white;
+    text-align: center;
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    text-shadow: 2px 1px 2px rgba(0,0,0,0.3);
+    transition-duration: 5s;
+    position: relative;
+    bottom: 0px;
+    opacity: 0;
+}
