@@ -7,9 +7,6 @@ import { gameOver } from "./UI";
 
 let tutorialProgress:number = 0;
 
-export function tutorialStart() {
-    setTutorial(true)
-}
 export function tutorial(e:KeyboardEvent) {
     if (remainingPlayBack > 300) return;
       switch (e.code) {

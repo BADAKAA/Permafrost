@@ -1,9 +1,10 @@
 import { remainingPlayBack } from "./sound";
-import { tutorial, tutorialStart as startTutorial } from "./tutorial";
+import { tutorial } from "./tutorial";
 import { closeInventory, openInventory, left, right, space } from "./inventory";
-import { conversation, end, initialisePoisition, tutorialMode } from "./status";
+import { conversation, end, initialisePoisition, setTutorial, tutorialMode } from "./status";
 import { startUI } from "./UI";
 import { talkAI, enter,} from "./game-logic";
+import { score } from "./sound-files";
 
 let start:boolean = false;
 
@@ -48,9 +49,8 @@ document.addEventListener('keyup', (e) => {
 //startUp
 function startUp() {
   start = true
-  //play score 
-  // score.play();
+  score.play();
   startUI();
   initialisePoisition();
-  startTutorial();
+  setTutorial(true);
 }
