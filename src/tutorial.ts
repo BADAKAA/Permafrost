@@ -1,9 +1,9 @@
-import { actions } from "./input-actions";
-import { I } from "./inventory";
 import { remainingPlayBack } from "./sound";
+import { actions } from "./input-actions";
 import { AI, sfx } from "./sound-files";
-import { G } from "./status";
 import { gameOver } from "./UI";
+import { I } from "./inventory";
+import { G } from "./status";
 
 interface Action {
   [key:number]:Function
@@ -49,7 +49,7 @@ const upActions:Action = {
     }
   },
   6:()=>{
-    sfx.quicktime.play("background");
+    sfx.quicktime.play(true);
     G.setTutorial(false)
     setTimeout(function () {
       if (G.currentRoom.name == "lab") {
