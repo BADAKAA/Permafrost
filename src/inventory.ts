@@ -1,122 +1,66 @@
-import { turn } from "./game-logic";
-import { getGameObject } from "./game-objects";
+import { GameObject as GameObject } from "./game-objects";
 import { sfx } from "./sound-files";
-import { conversation, currentRoom, hand, inventory, inventoryActive, selection, selectionNumber, setHand, setInventory } from "./status";
-import { tutorialMode } from "./status";
+import { Direction } from "./types/Direction";
 
-export let inventoryPos:number = 0;
+class Inventory {
 
-export function switchInventory(direction:string) {
+  #items: GameObject[] = [];
+  #position:number = 0;
+  #active = false;
+  isActive = () => this.#active;
 
-  if (inventory.length === 0) {
-    sfx.empty.play();
-    console.log("Meine Tasche ist leer.");
-    return;
-  } 
-  switch(direction) {
-  case "right": 
-    if (inventoryPos === 0) {
-      inventoryPos = inventory.length - 1;
-      break;
+  print = () => console.log("Inventory",this.#items.map(i=>i.name));
+
+  movePosition(direction:Direction) {
+    if (direction=="right") {
+      return this.#position === 0 ? this.#position = this.#items.length - 1 : this.#position--;
     }
-      inventoryPos--;
-      break;
-
-    case "left": 
-    if (inventoryPos === inventory.length - 1) {
-      inventoryPos = 0;
-      break;
-    }
-      inventoryPos++;
-      break
+    
+    this.#position === this.#items.length - 1 ? this.#position = 0 : this.#position++;
   }
 
-  console.log(inventory[inventoryPos].name);
+  move(direction:Direction) {
+    if (this.#items.length === 0) {
+      console.log("Meine Tasche ist leer.");
+      return sfx.empty.play();
+    } 
+    this.movePosition(direction);
+    console.log("Hand:",this.#items[this.#position].name);
 
-  if (inventory.length !== 0 && inventory[inventoryPos].type == "item") {
-    inventory[inventoryPos].sound[0].play();
+    if (this.#items[this.#position].type !== "item") return; // why is this necessary?
+    this.#items[this.#position].sound[0].play();
   }
-}
 
-export function openInventory() {
+  length = () => this.#items.length;
+  get = (index:number) => this.#items[index];
+  getSelected = () => this.#items[this.#position];
+  getLast = () => this.#items[this.#items.length-1];
 
-  if(inventoryActive) return;
-  inventoryPos = 0;
-  sfx.open.play();
-  setInventory(true)
-  inventory.forEach(element => {
-    console.log(element);
-  });
-  setTimeout(function () {
-    if (inventory.length > 0 && inventory[inventoryPos].type == "item") {
-      inventory[inventoryPos].sound[0].play();
-    };
-    if (inventory.length === 0) {
-      sfx.empty.play();
-    }
-  }, 750);
-}
+  push = (o:GameObject) => this.#items.push(o);
+  removeCurrent = () => this.#items.splice(this.#position, 1) 
+ 
 
-export function closeInventory() {
-  console.log("Hoch");
-  if (inventoryActive) {
-    setInventory(false);
+  open() {
+    if(this.#active) return;
+    
+    this.print();
+    this.#active = true;
+    this.#position = 0;
+    sfx.open.play();
+    const itemCount = this.#items.length;
+    const selection = this.#items[this.#position]; 
+
+    setTimeout (() => {
+      if (itemCount <= 0) return sfx.empty.play();
+      selection.sound[0].play();
+    }, sfx.open.duration());
+  }
+
+  close() {
+    if (!this.#active) return console.warn("Inventory is already closed.");
+    this.#active = false;
     sfx.close.play();
   }
-  else {
-    console.log(currentRoom.options.length);
-  }
 }
 
-
-export function left() {
-  if (!conversation) {
-    if (inventoryActive === true) {
-      switchInventory("left");
-    } else {
-      turn("left");
-    }
-  }
-}
-
-export function right() {
-  if (!conversation) {
-    if (inventoryActive === true) {
-      switchInventory("right")
-    }
-    else {
-      turn("right");
-    }
-  }
-}
-
-
-export function getItem() {
-  if (!inventoryActive) {
-    if (selectionNumber === currentRoom.options.length - 1 || selection.name === "Leer" || getGameObject(selection.name).type !== "item") {
-      console.log("Das kann ich nicht mitnehmen");
-      sfx.cannotTake.play();
-
-    } else {
-      inventory[inventory.length] = getGameObject(selection.name);
-      currentRoom.options.splice(selectionNumber, 1);
-      sfx.zipper.play();
-      if (!tutorialMode) {
-        setTimeout(function () {
-          sfx.took.play();
-        }, 1250);
-      }
-    }
-    turn("afterItemPickUp");
-  }
-}
-export function space() {
-
-  if (inventoryActive) {
-    sfx.activated.play();
-    setHand(inventory[inventoryPos]);
-    console.log(hand);
-  } else {
-    getItem();
-  }
-}
+export const I:Inventory = new Inventory();
