@@ -1,6 +1,6 @@
-import { getGameObject, room, rooms } from "./game-objects";
+import { getGameObject, room, rooms } from "./utils/game-objects";
 import { I } from "./inventory";
-import { sfx } from "./sound-files";
+import { sfx } from "./utils/sound-files";
 import { G } from "./status";
 import { Direction } from "./types/Direction";
 
@@ -18,7 +18,7 @@ export function turn(d:Direction,noSound?:boolean) {
 }
 
 export const quickTimeEndConditions = () => 
-  G.hand && G.hand.name == "crowbar" && G.currentRoom.name == "lab" && G.selection?.name == "hallway1";
+  G.hand?.name == "crowbar" && G.currentRoom.name == "lab" && G.selection?.name == "hallway1";
 
 export function endQuicktime(room:room) {
   getGameObject("hallway1").locked = false;

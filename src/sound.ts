@@ -32,7 +32,6 @@ export class sound {
         this.play = function (background?:boolean) {
             adjustVolume(this.sound,1)
             this.sound.play();
-
             if (background) return audioLength(5);
             audioLength(this.sound.duration);
         };

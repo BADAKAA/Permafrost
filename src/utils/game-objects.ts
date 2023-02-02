@@ -1,4 +1,4 @@
-import { sound } from "./sound";
+import { sound } from "../sound";
 
 export interface GameObject {
     name:string,

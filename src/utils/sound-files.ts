@@ -1,13 +1,13 @@
-import { sound } from "./sound";
+import { sound } from "../sound";
 
 export const score:sound = new sound("music/opening.ogg");
 export const ambience:sound = new sound("music/ambience.ogg");
 
 interface soundObject {
     [key: string]: sound;
- } 
+} 
 
-//These JSON-objects store sound data.
+// These JSON-objects store sound data.
 export const AI:soundObject  ={
         "fear":             new sound("AI/fear.ogg"),
         "tutorialStart":    new sound("AI/tutorialStart.ogg"),

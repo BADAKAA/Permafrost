@@ -1,5 +1,5 @@
-import { GameObject as GameObject } from "./game-objects";
-import { sfx } from "./sound-files";
+import { GameObject as GameObject } from "./utils/game-objects";
+import { sfx } from "./utils/sound-files";
 import { Direction } from "./types/Direction";
 
 class Inventory {

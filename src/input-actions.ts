@@ -1,7 +1,7 @@
 import { changeRoom, getItem, quickTimeEndConditions, talkAI, turn } from "./game-logic";
-import { getGameObject } from "./game-objects";
+import { getGameObject } from "./utils/game-objects";
 import { I } from "./inventory";
-import { sfx } from "./sound-files";
+import { sfx } from "./utils/sound-files";
 import { G } from "./status";
 import { gameOver } from "./UI";
 

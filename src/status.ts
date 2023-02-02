@@ -1,4 +1,4 @@
-import { GameObject, getGameObject, room, rooms } from "./game-objects";
+import { GameObject, getGameObject, room, rooms } from "./utils/game-objects";
 import { Direction } from "./types/Direction";
 
 
@@ -8,7 +8,7 @@ class Game {
     
     //navigational variables
     currentRoom: room
-    selectionNumber: number;
+    selectionNumber: number = 0;
     selection?: GameObject;
     //inventory
     inventoryActive:boolean = false;
@@ -16,11 +16,10 @@ class Game {
     conversation:boolean = false;
     end:boolean = false;
 
-
     constructor() {
         this.currentRoom = rooms[2];
-        this.selectionNumber = 0;
     }
+
     clearHand = () => this.hand=null;
     setHand = (object:GameObject) => this.hand=object;
     setCurrentItem= (item:GameObject) => this.currentItem=item;

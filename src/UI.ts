@@ -1,6 +1,7 @@
-import { bg, titleElement, startText, downloadText } from "./dom-utils";
-import { ambience, sfx } from "./sound-files";
+import { bg, titleElement, startText, downloadText } from "./utils/dom-utils";
+import { ambience, sfx } from "./utils/sound-files";
 import { G } from "./status";
+import { FIRST_AMBIENT_SOUND_DELAY } from "./utils/settings";
 
 //This variable controls the intervals in which the ambient sound is played.
 let ambientSound: number //function playing ambient sound in regular intervals;
@@ -23,8 +24,8 @@ export function gameOver(status: "win"|"loss") {
     //play and repeat ambient sounds. This interval function is terminated in gameOver();
     setTimeout(() => {
         ambience.play(true);
-        ambientSound = setInterval(() => ambience.play(true), 165000);
-    }, 125000);
+        ambientSound = setInterval(() => ambience.play(true), ambience.duration());
+    }, FIRST_AMBIENT_SOUND_DELAY);
   
     //show UI
     bg.style.opacity = "1";
