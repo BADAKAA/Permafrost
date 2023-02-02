@@ -17,10 +17,9 @@ function skipTutorial() {
 }
 
 
-export function tutorial(keycode:string) {
+export function tutorial(keycode:Key) {
   if (remainingPlayBack > 300) return;
   if (keycode=="Escape") return skipTutorial();
-  if (!tutorialActions.hasOwnProperty(keycode)) return;
   const keyActions = tutorialActions[keycode];
   if (!(tutorialProgress in keyActions)) return AI.wrongKey.play();
   keyActions[tutorialProgress]();
@@ -29,9 +28,7 @@ export function tutorial(keycode:string) {
 const upActions:Action = {
   0:() => {
     AI.startProgram.play();
-    setTimeout(function () {
-      AI.arrowKeyLook.play();
-    }, 1750);
+    setTimeout(() => AI.arrowKeyLook.play(), 1750);
     tutorialProgress++;
   },
   1:()=>AI.arrowKeyLook.play(),
@@ -39,35 +36,29 @@ const upActions:Action = {
   4:()=>{
     if (G.hand && G.hand.name == "flask") {
       I.close();
-      setTimeout(function () {
-        AI.well.play();
-      }, 750);
-      setTimeout(function () {
-        AI.enterObject.play();
-      }, 2000);
+      setTimeout(() => AI.well.play(), 750);
+      setTimeout(() => AI.enterObject.play(), 2000);
       tutorialProgress++;
     }
   },
   6:()=>{
     sfx.quicktime.play(true);
     G.setTutorial(false)
-    setTimeout(function () {
-      if (G.currentRoom.name == "lab") {
-        gameOver("lose");
-      }
+    setTimeout(() => {
+      if (G.currentRoom.name == "lab") gameOver("loss");
     }, 112000);
   }
 }
 
 const downActions:Action = {
   3: () => { I.open(); setTimeout(() => AI.spacebarFlask.play(), 1750);},
-  6: ()=>AI.fear.play()
+  6: () => AI.fear.play()
 }
 
 function turnAndCheckIfFinished(direction:"Right"|"Left") {
   actions["Arrow"+direction]();
   if (G.selection?.name !== "pipette") return;
-  setTimeout(()=>AI.well.play(), 1250);
+  setTimeout(() => AI.well.play(), 1250);
   setTimeout(() => {
     AI.spaceBarObject.play();
     tutorialProgress++;
@@ -110,12 +101,12 @@ const enterActions:Action = {
   }
 }
 
-const tutorialActions:{[key:string]:Action} = {
+const tutorialActions:{[K in Key]:Action} = {
   ArrowUp:    upActions,
   ArrowDown:  downActions,
   ArrowLeft:  leftActions,
   ArrowRight: rightActions,
   Enter:      enterActions,
-  NumpadEnter:enterActions,
   Space:      spaceActions,
+  Escape:     {}
 }

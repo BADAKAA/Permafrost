@@ -14,7 +14,7 @@ class Game {
     inventoryActive:boolean = false;
     currentItem?: GameObject;
     conversation:boolean = false;
-    end:boolean=false;
+    end:boolean = false;
 
 
     constructor() {

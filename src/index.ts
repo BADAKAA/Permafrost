@@ -10,28 +10,29 @@ let start         = false;
 let introFinished = false;
 
 //check user input
-
 function handleKey(e:KeyboardEvent) {
-  if (!introFinished) return intro(e);
-
   if (G.end) return console.log("Game Over");
-  //if the tutroial is active, then transfer key input to tutorial function and stop this function
-  if (G.tutorialMode) return tutorial(e.code);
+
+  const key = validateKey(e);
+  if (!key) return;
+  if (!introFinished) return intro(key);
+  if (G.tutorialMode) return tutorial(key);
   
   if (remainingPlayBack >= 500) return; 
-  if (G.conversation) return talkAI(e.code);
-  if (actions.hasOwnProperty(e.code)) actions[e.code]();
+  if (G.conversation) return talkAI(key);
+  actions[key]();
 }
 
 document.addEventListener('keyup', handleKey)
 
-function intro(e:KeyboardEvent) {
+function intro(keycode:Key) {
   if (!start) return startUp();
-  if (e.code=="Escape") return stopScore();
+  if (keycode=="Escape") stopScore();
 }
 function startUp() {
   start = true;
   score.play();
+  setTimeout(()=>introFinished=true, score.duration());
   startUI();
   G.setTutorial(true);
 }

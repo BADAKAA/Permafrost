@@ -1,7 +1,9 @@
-import { enter, turn } from "./game-logic";
+import { changeRoom, getItem, quickTimeEndConditions, talkAI, turn } from "./game-logic";
+import { getGameObject } from "./game-objects";
 import { I } from "./inventory";
 import { sfx } from "./sound-files";
 import { G } from "./status";
+import { gameOver } from "./UI";
 
 
 function space() {
@@ -20,25 +22,18 @@ function right() {
     I.isActive() ? I.move("right") : turn("right");
 }
   
+export function enter() {
+    const sel = G.selection;
+    if (!sel) return changeRoom();
   
-function getItem() {
-    if (I.isActive()) return;
-
-    const selection = G.selection;
-    if (!selection) return console.warn("No item selected.");
-    I.push(selection)
-  
-    if (G.selectionNumber === G.currentRoom.options.length - 1
-        || selection.name === "Leer"
-        || selection.type !== "item") {
-      console.log("Das kann ich nicht mitnehmen");
-      sfx.cannotTake.play();
-      return
-    } 
-    G.currentRoom.options.splice(G.selectionNumber, 1);
-    sfx.zipper.play();
-    turn("right",true);
-    setTimeout(() => sfx.took.play(), 1250);
+    if (sel.name === "lockedRoom" || sel.name === "lockedDoor") return sfx.locked.play();
+    G.hand && G.hand.name == "crowbar" && G.currentRoom.name == "lab"
+    if (quickTimeEndConditions()) return changeRoom();
+    if (sel.name == "lab") return getGameObject("lab").sound[1].play();
+    if (sel.name == "slit" && G.hand && G.hand.name == "disk") return talkAI("start");
+    if (sel.type == "item" || sel.type == "object") return sel.sound[1].play();
+    if (sel.name == "bridge") return gameOver("win");
+    changeRoom();
   }
 
 
@@ -48,6 +43,5 @@ export const actions:{[key:string]:Function} = {
     ArrowLeft:  left,
     ArrowRight: right,
     Enter:      enter,
-    NumpadEnter:enter,
     Space:      space,
 }
