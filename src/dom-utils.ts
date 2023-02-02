@@ -1,3 +1,4 @@
-export const bg = document.getElementById("background") as HTMLElement
-export const titleElement = document.getElementById("title") as HTMLElement
-export const startText = document.getElementById("start") as HTMLElement
+export const
+    bg = document.getElementById("background") as HTMLElement,
+    titleElement = document.getElementById("title") as HTMLElement,
+    startText = document.getElementById("start") as HTMLElement;
