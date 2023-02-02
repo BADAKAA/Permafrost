@@ -6,10 +6,10 @@ const keyConversions: { [key: string]: Key } = {
     NumpadEnter: "Enter",
 }
 
-const keys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter", "Space", "Escape"];
+const keys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter", "Space", "Escape"] as const;
 export type Key = typeof keys[number];
 
-const isValidKey = (key: string): key is Key => keys.indexOf(key) != -1;
+const isValidKey = (key: string): key is Key => !!keys.find(k=>k==key);
 
 const convertKey = (key: string) => key in keyConversions ? keyConversions[key] : key;
 
