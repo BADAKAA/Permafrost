@@ -18,7 +18,6 @@ function handleKey(e:KeyboardEvent) {
 
   const key = validateKey(e);
   if (!key) return console.warn("Invalid Key",key);
-  ;
   if (G.tutorialMode) return tutorial(key);
   
   if (remainingPlayBack >= PLAYBACK_INPUT_THRESHOLD) return; 
