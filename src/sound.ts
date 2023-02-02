@@ -17,7 +17,7 @@ export function audioLength(duration:number) {
 //enable audio output
 export class sound {
     sound:HTMLAudioElement;
-    play: (background?:string) => void;
+    play: (background?:boolean) => void;
     fade: () => void;
     stop = () => this.sound.pause();
     duration = () => this.sound.duration*1000;
@@ -29,15 +29,12 @@ export class sound {
         this.sound.setAttribute("controls", "none");
         this.sound.style.display = "none";
         document.body.appendChild(this.sound);
-        this.play = function (background?:string) {
+        this.play = function (background?:boolean) {
             adjustVolume(this.sound,1)
             this.sound.play();
 
-            if (!background) {
-                audioLength(this.sound.duration);
-            } else if (background=="background"){
-                audioLength(5);
-            }
+            if (background) return audioLength(5);
+            audioLength(this.sound.duration);
         };
         
         this.fade = function () {
