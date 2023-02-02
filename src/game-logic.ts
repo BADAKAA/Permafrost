@@ -11,33 +11,23 @@ export function turn(d:Direction,noSound?:boolean) {
   G.selection?.sound[0].play()
   
   //if the sound "a secruity door" has been played once, it is changed to "the secruity door"
-  if (G.selection?.name == "hallway2" && getGameObject("hallway2").sound.length > 1) {
-    getGameObject("hallway2").sound.splice(0, 1)
-  }
-  }
+  if (G.selection?.name !== "hallway2" || getGameObject("hallway2").sound.length <= 1) return;
+  getGameObject("hallway2").sound.splice(0, 1)
+}
 
- export function changeRoom() {
+const quickTimeEndConditions = () => G.hand && G.hand.name == "crowbar" && G.currentRoom.name == "lab";
 
-    for (const room of rooms) {
-      
-      if (G.selection?.name === room.name) {
-        if (G.hand && G.hand.name == "crowbar" && G.currentRoom.name == "lab") {
-          endQuicktime(room);
-          return;
-        }
-        if(room.locked) {
-          console.log("verschlossen");
-          sfx.locked.play();
-          return
-        } 
-        G.setRoom(room);
-        G.setSelection(0);
-        sfx.door.play();
-        console.log("Raum gewechselt");
-        return
-      }
-    }
-  }
+export function changeRoom() {
+  const room = rooms.find(r=>r.name==G.selection?.name);
+  if (!room) return console.error("Room not found");
+  if (quickTimeEndConditions()) return endQuicktime(room);
+  if (room.locked) return sfx.locked.play();
+
+  G.setRoom(room);
+  G.setSelection(0);
+  sfx.door.play();
+  console.log("Raum gewechselt");
+}
   
     
 export function endQuicktime(room:room) {
@@ -47,17 +37,11 @@ export function endQuicktime(room:room) {
     sfx.openUp.play();
     G.setRoom(room);
     G.setSelection(0);
-    setTimeout(() => {
-      sfx.quicktime.stop();
-    }, 8000);
+    setTimeout(() => sfx.quicktime.stop(), 8000);
     G.clearHand();
   }
 
  export function talkAI(command: string) {
-    //"command" can be both a key code and a word. Here, the input is converted in case it is a key code.
-    if (command=="ArrowUp") command="yes";
-    if (command=="ArrowDown") command="no";
-  
     if (command == "start") {
       sfx.AIRestored.play();
       G.clearHand()
@@ -65,42 +49,28 @@ export function endQuicktime(room:room) {
       getGameObject("hallway2").locked = false;
       G.setConversation(true);
     }
-    if (command == "yes") {
+    if (command == "yes" || command == "ArrowUp") {
       sfx.yes.play();
       G.setConversation(false);
     }
-    if (command == "no") {
+    if (command == "no" || command=="ArrowDown") {
       sfx.no.play();
       G.setConversation(false);
     }
   }
 
   export function enter() {
+    const sel = G.selection;
+    if (!sel) return changeRoom();
 
-    if (G.selection?.name === "lockedRoom" || G.selection?.name === "lockedDoor") {
-      console.log("verschlossen");
-      sfx.locked.play();
-      return
-    }
-    if (G.currentRoom == getGameObject("lab") && G.selection?.name == "hallway1" && G.hand && G.hand.name == "crowbar") {
-      changeRoom();
-      return
+    if (sel.name === "lockedRoom" || sel.name === "lockedDoor") return sfx.locked.play();
+
+    if (G.currentRoom.name == "lab" && sel.name == "hallway1" && G.hand && G.hand.name == "crowbar") {
+      return changeRoom();
     } 
-    if (G.selection?.name == "lab") {
-      getGameObject("lab").sound[1].play();
-      return
-    }
-    if (G.selection?.name == "slit" && G.hand && G.hand.name == "disk") {
-      talkAI("start");
-      return
-    }
-    if (G.selection?.type == "item" || G.selection?.type == "object") {
-      G.selection?.sound[1].play();
-      return
-    }
-    if (G.selection?.name == "bridge") {
-      gameOver("win");
-      return
-    } 
+    if (sel.name == "lab") return getGameObject("lab").sound[1].play();
+    if (sel.name == "slit" && G.hand && G.hand.name == "disk") return talkAI("start");
+    if (sel.type == "item" || sel.type == "object") return sel.sound[1].play();
+    if (sel.name == "bridge") return gameOver("win");
     changeRoom();
-  }
+}
