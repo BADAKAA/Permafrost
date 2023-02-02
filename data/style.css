@@ -55,6 +55,7 @@ h1 {
     position: relative;
     cursor: none;
     animation: fadeInDelayed 10.0s;
+
 }
 a {
     font-family: 'nova round', sans-serif;

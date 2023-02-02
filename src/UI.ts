@@ -39,7 +39,6 @@ export function gameOver(status: string) {
       setTimeout(() => {
         bg.style.opacity = "0";
         titleElement.style.color = "black";
-        startText.style.opacity = "0";
         downloadText.style.opacity = "0";
       }, 10000);
   }
