@@ -17,6 +17,16 @@ export function turn(d:Direction,noSound?:boolean) {
 
 const quickTimeEndConditions = () => G.hand && G.hand.name == "crowbar" && G.currentRoom.name == "lab";
 
+export function endQuicktime(room:room) {
+  getGameObject("hallway1").locked = false;
+  getGameObject("hallway1").sound.splice(0, 1);
+  sfx.openUp.play();
+  G.setRoom(room);
+  G.setSelection(0);
+  setTimeout(() => sfx.quicktime.stop(), 8000);
+  G.clearHand();
+}
+
 export function changeRoom() {
   const room = rooms.find(r=>r.name==G.selection?.name);
   if (!room) return console.error("Room not found");
@@ -27,17 +37,6 @@ export function changeRoom() {
   G.setSelection(0);
   sfx.door.play();
   console.log("Raum gewechselt");
-}
-  
-    
-export function endQuicktime(room:room) {
-  getGameObject("hallway1").locked = false;
-  getGameObject("hallway1").sound.splice(0, 1);
-  sfx.openUp.play();
-  G.setRoom(room);
-  G.setSelection(0);
-  setTimeout(() => sfx.quicktime.stop(), 8000);
-  G.clearHand();
 }
 
 export function talkAI(command: string) {
