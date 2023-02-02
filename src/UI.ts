@@ -27,15 +27,15 @@ export function gameOver(status: string) {
 
         ambience.play(true);
         ambientSound = setInterval(() => {
-    
-          ambience.play();
+          ambience.play(true);
         }, 165000);
       }, 125000);
     
       //show UI
       bg.style.opacity = "1";
       titleElement.style.color = "white";
-      startText.style.opacity = "0";
+      startText.style.animation = "none";
+      setTimeout(() => {startText.style.opacity = "0"},100);
       setTimeout(() => {
         bg.style.opacity = "0";
         titleElement.style.color = "black";
