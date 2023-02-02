@@ -18,8 +18,10 @@ export function audioLength(duration:number) {
 export class sound {
     sound:HTMLAudioElement;
     play: (background?:string) => void;
-    stop: () => void;
     fade: () => void;
+    stop = () => this.sound.pause();
+    duration = () => this.sound.duration*1000;
+
     constructor(src:any) {
         this.sound = document.createElement("audio");
         this.sound.src = src;
@@ -38,10 +40,6 @@ export class sound {
             }
         };
         
-        this.stop = function () {
-            this.sound.pause();
-        };
-
         this.fade = function () {
             adjustVolume(this.sound,0);
             setTimeout(()=>this.sound.pause(),3000) 

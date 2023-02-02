@@ -1,13 +1,13 @@
 import { sound } from "./sound";
 
-export interface gameObject {
+export interface GameObject {
     name:string,
     type:string,
     sound:Array<sound>,
     locked?:boolean,
 }
 
-export interface room extends gameObject {
+export interface room extends GameObject {
     options: Array<string>,
     locked:boolean
 }
@@ -17,7 +17,7 @@ const room=   "room";
 const item=   "item";
 const object= "object";
 
-export const gameObjects:gameObject[]=[
+export const gameObjects:GameObject[]=[
 
 //items
 {name: "flask",         type:item,     sound: [new sound("player/item/flask.wav"),   new sound("player/item/flask2.wav")]},

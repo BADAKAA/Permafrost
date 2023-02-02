@@ -27,7 +27,7 @@ export const AI:soundObject  ={
         "well":             new sound("AI/well.wav"),
         "bag":              new sound("AI/bag.wav"),
         "tutorialFinish":   new sound("AI/tutorialFinish.wav"),
-        };        
+};        
 
 export const sfx:soundObject = {
             "AIRestored":    new sound("sfx/AIRestored.wav"),
@@ -48,4 +48,4 @@ export const sfx:soundObject = {
             "no":       new sound("sfx/no.wav"),
             "gameOver": new sound("sfx/gameOver.wav"),
             "captain":  new sound("sfx/captain.wav")
-            };
+};
