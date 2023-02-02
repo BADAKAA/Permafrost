@@ -1,53 +1,45 @@
-import { gameObject, getGameObject, room, rooms } from "./game-objects";
+import { GameObject, getGameObject, room, rooms } from "./game-objects";
+import { Direction } from "./types/Direction";
 
-export let tutorialMode:boolean = false;
-export let hand: gameObject | null;
 
-//navigational variables
-export let currentRoom: room;
-export let selectionNumber: number;
-export let selection: gameObject;
-//inventory
-export let currentItem: gameObject;
-export const inventory: gameObject[] = [];
-export let inventoryActive:boolean = false;
-export let conversation:boolean = false;
-export let end:boolean=false;
+class Game {
+    tutorialMode:boolean = false;
+    hand: GameObject | null = null;
+    
+    //navigational variables
+    currentRoom: room
+    selectionNumber: number;
+    selection?: GameObject;
+    //inventory
+    inventoryActive:boolean = false;
+    currentItem?: GameObject;
+    conversation:boolean = false;
+    end:boolean=false;
 
-export function initialisePoisition() {
-    //set Position
-    currentRoom = rooms[2];
-    selectionNumber = 0;
+
+    constructor() {
+        this.currentRoom = rooms[2];
+        this.selectionNumber = 0;
+    }
+    clearHand = () => this.hand=null;
+    setHand = (object:GameObject) => this.hand=object;
+    setCurrentItem= (item:GameObject) => this.currentItem=item;
+    setInventoryStatus = (value:boolean) => this.inventoryActive = value;
+    setConversation = (value:boolean) => this.conversation=value;
+    setRoom = (room:room) => this.currentRoom=room;
+    setTutorial = (value:boolean) => this.tutorialMode=value;
+    endGame = () => this.end=true;
+    
+    move(direction:Direction) {
+        const max = this.currentRoom.options.length - 1;
+        direction=="right" ? this.selectionNumber++ : this.selectionNumber--;
+        if (this.selectionNumber < 0) this.selectionNumber = max;
+        if (this.selectionNumber > max) this.selectionNumber = 0;
+        this.selection = getGameObject(this.currentRoom.options[this.selectionNumber]);
+    }
+    setSelection(index:number) {
+        this.selection = getGameObject(this.currentRoom.options[index]);
+    }
 }
-export function clearHand() {
-    hand=null;
-}
-export function setHand(object:gameObject) {
-    hand=object;
-}
-export function setCurrentItem(item:gameObject) {
-    currentItem=item;
-}
-export function setInventory(value:boolean) {
-    inventoryActive =value;;
-}
-export  function setConversation(value:boolean) {
-    conversation=value;
-}
-export function endGame() {
-    end=true;
-}
-export function setSelection(value:number) {
-    selectionNumber=value;
-    selection = getGameObject(currentRoom.options[selectionNumber]);
-}
-export function addToSelection(value:number) {
-    selectionNumber+=value;
-    selection = getGameObject(currentRoom.options[selectionNumber]);
-}
-export function setRoom(room:room) {
-    currentRoom=room;
-}
-export function setTutorial(value:boolean) {
-    tutorialMode=value
-}
+
+export const G:Game = new Game();
