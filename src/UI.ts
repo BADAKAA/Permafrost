@@ -1,4 +1,4 @@
-import { bg, titleElement, startText } from "./dom-utils";
+import { bg, titleElement, startText, downloadText } from "./dom-utils";
 import { ambience, sfx } from "./sound-files";
 import { G } from "./status";
 
@@ -25,7 +25,7 @@ export function gameOver(status: string) {
     //play and repeat ambient sounds. This interval function is terminated in gameOver();
     setTimeout(() => {
 
-        ambience.play("background");
+        ambience.play(true);
         ambientSound = setInterval(() => {
     
           ambience.play();
@@ -40,5 +40,6 @@ export function gameOver(status: string) {
         bg.style.opacity = "0";
         titleElement.style.color = "black";
         startText.style.opacity = "0";
+        downloadText.style.opacity = "0";
       }, 10000);
   }
