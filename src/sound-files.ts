@@ -1,7 +1,7 @@
 import { sound } from "./sound";
 
-export const score:sound = new sound("music/opening.wav");
-export const ambience:sound = new sound("music/ambience.wav");
+export const score:sound = new sound("music/opening.ogg");
+export const ambience:sound = new sound("music/ambience.ogg");
 
 interface soundObject {
     [key: string]: sound;
@@ -9,43 +9,43 @@ interface soundObject {
 
 //These JSON-objects store sound data.
 export const AI:soundObject  ={
-        "fear":             new sound("AI/fear.wav"),
-        "tutorialStart":    new sound("AI/tutorialStart.wav"),
-        "talented":         new sound("AI/talented.wav"),
-        "wrongKey":         new sound("AI/wrongKey.wav"),
-        "enterObject":      new sound("AI/enterObject.wav"),
-        "fillTestTube":     new sound("AI/fillTestTube.wav"),
-        "flaskInBag":       new sound("AI/flaskInBag.wav"),
-        "spaceBarObject":   new sound("AI/spaceBarObject.wav"),
-        "funny":            new sound("AI/funny.wav"),
-        "shutDown":         new sound("AI/shutDown.wav"),
-        "arrowKeyYes":      new sound("AI/arrowKeyYes.wav"),
-        "arrowKeyLook":     new sound("AI/arrowKeyLook.wav"),
-        "startProgram":     new sound("AI/startProgram.wav"),
-        "spacebarFlask":    new sound("AI/spacebarFlask.wav"),
-        "pity":             new sound("AI/pity.wav"),
-        "well":             new sound("AI/well.wav"),
-        "bag":              new sound("AI/bag.wav"),
-        "tutorialFinish":   new sound("AI/tutorialFinish.wav"),
+        "fear":             new sound("AI/fear.ogg"),
+        "tutorialStart":    new sound("AI/tutorialStart.ogg"),
+        "talented":         new sound("AI/talented.ogg"),
+        "wrongKey":         new sound("AI/wrongKey.ogg"),
+        "enterObject":      new sound("AI/enterObject.ogg"),
+        "fillTestTube":     new sound("AI/fillTestTube.ogg"),
+        "flaskInBag":       new sound("AI/flaskInBag.ogg"),
+        "spaceBarObject":   new sound("AI/spaceBarObject.ogg"),
+        "funny":            new sound("AI/funny.ogg"),
+        "shutDown":         new sound("AI/shutDown.ogg"),
+        "arrowKeyYes":      new sound("AI/arrowKeyYes.ogg"),
+        "arrowKeyLook":     new sound("AI/arrowKeyLook.ogg"),
+        "startProgram":     new sound("AI/startProgram.ogg"),
+        "spacebarFlask":    new sound("AI/spacebarFlask.ogg"),
+        "pity":             new sound("AI/pity.ogg"),
+        "well":             new sound("AI/well.ogg"),
+        "bag":              new sound("AI/bag.ogg"),
+        "tutorialFinish":   new sound("AI/tutorialFinish.ogg"),
 };        
 
 export const sfx:soundObject = {
-            "AIRestored":    new sound("sfx/AIRestored.wav"),
-            "door":     new sound("sfx/door.wav"),
-            "open":     new sound("sfx/open.wav"),
-            "close":    new sound("sfx/close.wav"),
-            "empty":    new sound("sfx/empty.wav"),
-            "cannotTake":new sound("sfx/cannotTake.wav"),
-            "zipper":   new sound("sfx/zipper.wav"),
-            "locked":   new sound("sfx/locked.wav"),
-            "took":     new sound("sfx/took.wav"),
-            "activated":new sound("sfx/activated.wav"),
-            "pour":     new sound("sfx/pour.wav"),
-            "quicktime":new sound("sfx/quicktime.wav"),
-            "openUp":   new sound("sfx/openUp.wav"),
-            "grunt":    new sound("sfx/grunt.wav"),
-            "yes":      new sound("sfx/yes.wav"),
-            "no":       new sound("sfx/no.wav"),
-            "gameOver": new sound("sfx/gameOver.wav"),
-            "captain":  new sound("sfx/captain.wav")
+            "AIRestored":    new sound("sfx/AIRestored.ogg"),
+            "door":     new sound("sfx/door.ogg"),
+            "open":     new sound("sfx/open.ogg"),
+            "close":    new sound("sfx/close.ogg"),
+            "empty":    new sound("sfx/empty.ogg"),
+            "cannotTake":new sound("sfx/cannotTake.ogg"),
+            "zipper":   new sound("sfx/zipper.ogg"),
+            "locked":   new sound("sfx/locked.ogg"),
+            "took":     new sound("sfx/took.ogg"),
+            "activated":new sound("sfx/activated.ogg"),
+            "pour":     new sound("sfx/pour.ogg"),
+            "quicktime":new sound("sfx/quicktime.ogg"),
+            "openUp":   new sound("sfx/openUp.ogg"),
+            "grunt":    new sound("sfx/grunt.ogg"),
+            "yes":      new sound("sfx/yes.ogg"),
+            "no":       new sound("sfx/no.ogg"),
+            "gameOver": new sound("sfx/gameOver.ogg"),
+            "captain":  new sound("sfx/captain.ogg")
 };
