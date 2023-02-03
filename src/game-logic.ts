@@ -60,7 +60,7 @@ export function talkAI(command: string) {
   }
 }
 
-const isPocketableItem = (selection:GameObject) => G.selectionNumber === G.currentRoom.options.length - 1 || selection.name === "Leer" || selection.type !== "item";
+const isPocketableItem = (selection:GameObject) => selection.name !== "Leer" && selection.type === "item" && G.selectionNumber !== G.currentRoom.options.length - 1;
 
 export function getItem() {
   if (I.isActive()) return console.warn("Cannot get item. Inventory is active.");
