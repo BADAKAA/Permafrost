@@ -1,4 +1,4 @@
-import { getGameObject, room, rooms } from "./utils/game-objects";
+import { GameObject, getGameObject, room, rooms } from "./utils/game-objects";
 import { I } from "./inventory";
 import { sfx } from "./utils/sound-files";
 import { G } from "./status";
@@ -60,22 +60,18 @@ export function talkAI(command: string) {
   }
 }
 
+const isPocketableItem = (selection:GameObject) => G.selectionNumber === G.currentRoom.options.length - 1 || selection.name === "Leer" || selection.type !== "item";
+
 export function getItem() {
-  if (I.isActive()) return;
+  if (I.isActive()) return console.warn("Cannot get item. Inventory is active.");
 
   const selection = G.selection;
   if (!selection) return console.warn("No item selected.");
+  if (!isPocketableItem(selection)) return sfx.cannotTake.play();
+  
   I.push(selection)
-
-  if (G.selectionNumber === G.currentRoom.options.length - 1
-      || selection.name === "Leer"
-      || selection.type !== "item") {
-    console.log("Das kann ich nicht mitnehmen");
-    sfx.cannotTake.play();
-    return
-  } 
   G.currentRoom.options.splice(G.selectionNumber, 1);
   sfx.zipper.play();
   turn("right",true);
-  setTimeout(() => sfx.took.play(), 1250);
+  setTimeout(() => sfx.took.play(), sfx.zipper.duration() + 250);
 }
