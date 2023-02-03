@@ -3,6 +3,7 @@ const keyConversions: { [key: string]: Key } = {
     s: "ArrowDown",
     a: "ArrowLeft",
     d: "ArrowRight",
+    " ": "Space",
     NumpadEnter: "Enter",
 }
 
