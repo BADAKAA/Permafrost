@@ -73,5 +73,5 @@ export function getItem() {
   G.currentRoom.options.splice(G.selectionNumber, 1);
   sfx.zipper.play();
   turn("right",true);
-  setTimeout(() => sfx.took.play(), sfx.zipper.duration() + 250);
+  setTimeout(() => sfx.took.play(), sfx.zipper.duration() - 350);
 }
