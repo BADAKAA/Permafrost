@@ -27,7 +27,6 @@ export function enter() {
     if (!sel) return changeRoom();
   
     if (sel.name === "lockedRoom" || sel.name === "lockedDoor") return sfx.locked.play();
-    G.hand && G.hand.name == "crowbar" && G.currentRoom.name == "lab"
     if (quickTimeEndConditions()) return changeRoom();
     if (sel.name == "lab") return getGameObject("lab").sound[1].play();
     if (sel.name == "slit" && G.hand && G.hand.name == "disk") return talkAI("start");
