@@ -53,7 +53,7 @@ const downActions: Action = {
 }
 
 function turnAndCheckIfFinished(direction: "Right" | "Left") {
-  actions["Arrow" + direction]();
+  actions["Arrow" + direction as Key]();
   if (G.selection?.name !== "pipette") return;
   setTimeout(() => AI.well.play(), 1250);
   setTimeout(() => {

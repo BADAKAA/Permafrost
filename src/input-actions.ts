@@ -4,6 +4,7 @@ import { I } from "./inventory";
 import { sfx } from "./utils/sound-files";
 import { G } from "./status";
 import { gameOver } from "./UI";
+import { Key } from "./types/key";
 
 
 function space() {
@@ -36,11 +37,12 @@ export function enter() {
   }
 
 
-export const actions:{[key:string]:Function} = {
+export const actions:{[K in Key]:Function} = {
     ArrowUp:    ()=>I.close(),
     ArrowDown:  ()=>I.open(),
     ArrowLeft:  left,
     ArrowRight: right,
     Enter:      enter,
     Space:      space,
+    Escape:     ()=>null,
 }
