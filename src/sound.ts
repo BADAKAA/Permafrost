@@ -15,7 +15,7 @@ export function audioLength(duration:number) {
 }
 
 //enable audio output
-export class sound {
+export class Sound {
     sound:HTMLAudioElement;
     play: (background?:boolean) => void;
     fade: () => void;
