@@ -5,7 +5,7 @@ export default {
     input: "./src/index.ts",
     output: {
         format: "iife",
-        file: "./build/bundle.js"
+        file: "./assets/bundle.js"
     },
     plugins: [
         typescript({
